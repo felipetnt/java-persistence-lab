@@ -28,6 +28,22 @@ public class Author {
         books = new HashSet<>();
     }
 
+    public void addBook(Book book) {
+        this.books.add(book);
+        book.getAuthors().add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Author: " +
+                "id=" + id +
+                ", name='" + name;
+    }
+
+    public Author(){
+
+    }
+
     public Set<Book> getBooks() {
         return books;
     }

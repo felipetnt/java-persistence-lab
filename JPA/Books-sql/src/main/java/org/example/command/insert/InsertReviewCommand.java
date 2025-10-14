@@ -15,6 +15,6 @@ public class InsertReviewCommand implements Command {
         Review review = EntityViewer.inputReview();
         ReviewDAO DAO = new ReviewDAO();
         DAO.persistir(review);
-
+        System.out.println("Resenha persistida com sucesso.");
     }
 }

@@ -1,6 +1,7 @@
 package org.example.view;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Reader {
     public static double lerDouble() {
@@ -19,6 +20,21 @@ public class Reader {
     public static int lerInt(String msg) {
         System.out.println(msg);
         return lerInt();
+    }
+
+    public static UUID lerUUID() {
+        String input = new Scanner(System.in).nextLine();
+        try {
+            return UUID.fromString(input);
+        } catch (IllegalArgumentException e) {
+            System.out.println("UUID inválido! Tente novamente:");
+            return lerUUID();
+        }
+    }
+
+    public static UUID lerUUID(String msg) {
+        System.out.println(msg);
+        return lerUUID();
     }
 
     public static String lerString() {

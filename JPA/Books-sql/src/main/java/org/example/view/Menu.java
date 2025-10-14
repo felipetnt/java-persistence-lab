@@ -1,13 +1,17 @@
 package org.example.view;
 
 import org.example.command.Command;
-import org.example.command.find.FindAuthorByTitleCommand;
-import org.example.command.find.FindBookByNameCommand;
+import org.example.command.find.FindAuthorByNameCommand;
+import org.example.command.find.FindBookByTitleCommand;
 import org.example.command.find.FindPublisherByNameCommand;
 import org.example.command.insert.InsertAuthorCommand;
 import org.example.command.insert.InsertBookCommand;
 import org.example.command.insert.InsertPublisherCommand;
 import org.example.command.insert.InsertReviewCommand;
+import org.example.command.list.ListAllOfBookCommand;
+import org.example.command.list.ListAllOfAuthorCommand;
+import org.example.command.list.ListAllOfPublisherCommand;
+import org.example.command.list.ListAllOfReviewCommand;
 import org.example.command.update.updateAuthorCommand;
 import org.example.command.update.updateBookCommand;
 import org.example.command.update.updatePublisherCommand;
@@ -24,7 +28,8 @@ public class Menu {
                             "1 - Cadastrar\n" +
                             "2 - Atualizar\n" +
                             "3 - Buscar\n" +
-                            "4 - Sair\n" +
+                            "4 - Listar\n" +
+                            "5 - Sair\n" +
                             "-----------------------------\n" +
                             "Escolha uma opção: "
             );
@@ -40,11 +45,15 @@ public class Menu {
                     Menu.findOption();
                     break;
                 case 4:
+                    Menu.listOption();
+                    break;
+                case 5:
                     loop = false;
                     break;
             }
         }
     }
+
 
     public static void insertOption(){
         int optionInsert = Reader.lerInt(
@@ -77,7 +86,7 @@ public class Menu {
         }
     }
 
-    public static void updateOption(){
+    private static void updateOption(){
         int optionUpdate = Reader.lerInt(
                    "-----------------------------\n" +
                         "          ATUALIZAR          \n" +
@@ -109,7 +118,7 @@ public class Menu {
         }
     }
 
-    public static void findOption(){
+    private static void findOption(){
         int optionFind = Reader.lerInt(
                 "-----------------------------\n" +
                         "           BUSCAR            \n" +
@@ -122,7 +131,7 @@ public class Menu {
         );
         switch (optionFind){
             case 1:
-                Command findBookByTitle = new FindBookByNameCommand();
+                Command findBookByTitle = new FindBookByTitleCommand();
                 findBookByTitle.execute();
                 break;
             case 2:
@@ -130,8 +139,39 @@ public class Menu {
                 findPublisherByName.execute();
                 break;
             case 3:
-                Command findAuthorByName = new FindAuthorByTitleCommand();
+                Command findAuthorByName = new FindAuthorByNameCommand();
                 findAuthorByName.execute();
+                break;
+        }
+    }
+
+    private static void listOption(){
+        int optionInsert = Reader.lerInt(
+                "-----------------------------\n" +
+                        "         LISTAR           \n" +
+                        "-----------------------------\n" +
+                        "1 - Livro\n" +
+                        "2 - Editora\n" +
+                        "3 - Resenha\n" +
+                        "4 - Autor(a)\n" +
+                        "-----------------------------\n" +
+                        "Escolha uma opção: ");
+        switch (optionInsert){
+            case 1:
+                Command listAllOfBook = new ListAllOfBookCommand();
+                listAllOfBook.execute();
+                break;
+            case 2:
+                Command listAllOfPublisher = new ListAllOfPublisherCommand();
+                listAllOfPublisher.execute();
+                break;
+            case 3:
+                Command listAllOfReview = new ListAllOfReviewCommand();
+                listAllOfReview.execute();
+                break;
+            case 4:
+                Command ListAllOfAuthor = new ListAllOfAuthorCommand();
+                ListAllOfAuthor.execute();
                 break;
         }
     }

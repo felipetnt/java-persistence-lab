@@ -24,9 +24,22 @@ public class Publisher {
     private Set<Book> books;
 
     public Publisher(String name){
-        setName(name);
+        setName(name); // ss
         books = new HashSet<>();
     }
+
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name +
+                '}';
+    }
+
+    public Publisher(){
+
+    }
+
     public String getName() {
         return name;
     }

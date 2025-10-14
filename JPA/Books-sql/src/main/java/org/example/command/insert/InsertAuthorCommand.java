@@ -15,5 +15,6 @@ public class InsertAuthorCommand implements Command {
         Author author = EntityViewer.inputAuthor();
         AuthorDAO DAO = new AuthorDAO();
         DAO.persistir(author);
+        System.out.println("Autor persistido com sucesso.");
     }
 }

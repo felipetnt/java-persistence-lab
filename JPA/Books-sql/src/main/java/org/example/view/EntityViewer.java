@@ -1,5 +1,7 @@
 package org.example.view;
 
+import org.example.DAO.AuthorDAO;
+import org.example.DAO.PublisherDAO;
 import org.example.models.Author;
 import org.example.models.Book;
 import org.example.models.Publisher;
@@ -10,58 +12,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EntityViewer {
-    public static Book inputBook(){
+    public static Book inputBook() {
         String title = Reader.lerString("Insira o nome do livro: ");
-
-        Publisher publisher = inputPublisher();
+        PublisherDAO DAO = new PublisherDAO();
+        Publisher publisher = PublisherDAO.ensurePublisherExists(Reader.lerString("Insira o nome da editora: "));
         Set<Author> authors = getAuthors();
+
         Review review = inputReview();
 
         Book book = new Book(title);
+        book.setPublisher(publisher);
         book.setAuthors(authors);
         book.setReview(review);
-        book.setPublisher(publisher);
 
         Validator.validateEntity(book);
-
         return book;
     }
 
-    public static Author inputAuthor(){
+    public static Author inputAuthor() {
         String name = Reader.lerString("Insira o nome do autor: ");
-        Set<Book> books = getBooks();
-
         Author author = new Author(name);
-        author.setBooks(books);
-
         Validator.validateEntity(author);
-
         return author;
     }
 
-    public static Review inputReview(){
-        String coment = Reader.lerString("Insira a resenha do livro: ");
-        Book book = EntityViewer.inputBook();
-
-        Review review = new Review();
-        review.setComment(coment);
-        review.setBook(book);
-
-        Validator.validateEntity(review);
-
-        return review;
+    public static Publisher inputPublisher() {
+        String name = Reader.lerString("Insira o nome da editora: ");
+        Publisher pub = new Publisher(name);
+        Validator.validateEntity(pub);
+        return pub;
     }
 
-    public static Publisher inputPublisher(){
-        String name = Reader.lerString("Insira o nome da Editora: ");
-        Set<Book> books = getBooks();
-
-        Publisher pub = new Publisher(name);
-        pub.setBooks(books);
-
-        Validator.validateEntity(pub);
-        
-        return pub;
+    public static Review inputReview() {
+        String comment = Reader.lerString("Insira a resenha do livro: ");
+        Review review = new Review();
+        review.setComment(comment);
+        Validator.validateEntity(review);
+        return review;
     }
 
     protected static Set<Author> getAuthors(){
@@ -69,6 +56,7 @@ public class EntityViewer {
         while(true){
             System.out.println("Insira o(s) autores que estao no seu livro: ");
             Author author = inputAuthor();
+            author = AuthorDAO.ensureAuthorExists(author.getName());
             authors.add(author);
             boolean b = Reader.lerContinue("Deseja inserir mais um autor? (Sim/Nao) ");
             if(!b) {

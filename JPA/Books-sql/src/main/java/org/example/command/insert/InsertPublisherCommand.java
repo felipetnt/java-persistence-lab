@@ -15,6 +15,6 @@ public class InsertPublisherCommand implements Command {
         Publisher publisher = EntityViewer.inputPublisher();
         PublisherDAO DAO = new PublisherDAO();
         DAO.persistir(publisher);
-
+        System.out.println("Editora persistida com sucesso.");
     }
 }

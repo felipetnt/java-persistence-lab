@@ -20,7 +20,7 @@ public class Book {
     private String title;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
@@ -36,9 +36,29 @@ public class Book {
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     private Review review;
 
+    public Book(){
+
+    }
+
     public Book(String title){
         setTitle(title);
         authors = new HashSet<>();
+    }
+
+    public void addAuthor(Author author) {
+        this.authors.add(author);
+        author.getBooks().add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", publisher=" + publisher +
+                ", authors=" + authors +
+                ", review=" + review +
+                '}';
     }
 
     public Review getReview() {

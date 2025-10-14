@@ -24,7 +24,17 @@ public class Review {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 
+    public Review(){
+
+    }
     public Book getBook() {
         return book;
     }
